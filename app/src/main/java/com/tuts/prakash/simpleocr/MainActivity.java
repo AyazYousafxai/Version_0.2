@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     SurfaceView mCameraView;
     TextView mTextView;
     CameraSource mCameraSource;
-
+int coun=0;
     private static final String TAG = "MainActivity";
     private static final int requestPermissionID = 101;
 
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
                 @Override
                 public void release() {
+
                 }
 
                 /**
@@ -137,15 +138,19 @@ public class MainActivity extends AppCompatActivity {
                                 int value=0;
                                 try {
                                      value = Integer.parseInt(stringBuilder.toString());
-                                    mTextView.setText(String.valueOf(value));
+
                                 }
                                 catch (NumberFormatException e){
                                     Log.i("Error",e.getMessage());
                                 }
-                               if(value!=0) {
+                               if(value!=0&&coun==0) {
+                                   coun=1;
+                                   mTextView.setText(String.valueOf(value));
                                     Intent intent = new Intent(getApplicationContext(), VideoView.class);
+
                                     intent.putExtra("Value", value);
                                     startActivity(intent);
+                                 // mCameraSource.stop();
                                 }
 
                             }
